@@ -1,0 +1,10 @@
+{
+  "name": "platzi-basic-graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "graphql": "^16.3.0"
+  }
+}
