@@ -12,6 +12,10 @@ const resolvers: IResolvers = {
     courses(): Course[] {
       return exampleCourses;
     },
+
+    course(_root, args) {
+      return exampleCourses.find((course) => course._id === args.id);
+    },
   },
 };
 

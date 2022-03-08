@@ -1,8 +1,8 @@
 # Basic GraphQL Course
 
-[Take the course!](https://platzi.com/cursos/graphql)
+> [Take the course!](https://platzi.com/cursos/graphql)
 
-While the course is pretty outdated and uses some bad practices IMO 😩, I learnt
+While the course is pretty outdated and IMO uses some bad practices 😩, I learnt
 the basics of GraphQL.
 
 While try to use it in my next projects!
@@ -12,6 +12,14 @@ Also fix
 
 > The course was done using plain Javascript, but I feel more used to TypeScript
 > sooo 😆
+
+## Stack
+
+- Express
+
+- GraphQL
+
+- MongoDB
 
 ## License
 
