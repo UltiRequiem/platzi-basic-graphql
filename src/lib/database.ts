@@ -1,5 +1,5 @@
 import { exit } from "node:process";
-import { MongoClient, Db } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 import { DB_NAME, MONGO_URL } from "../config";
 
 let connection: Db;

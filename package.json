@@ -7,7 +7,7 @@
     "start": "ts-node src/",
     "dev": "ts-node-dev --poll --exit-child --transpile-only ./src/index.ts",
     "build": "tsc",
-    "format": "prettier --write '**/*.{ts,js,json,md}'",
+    "fmt": "prettier --write '**/*.{ts,js,json,md}'",
     "lint": "eslint . && prettier --check '**/*.{ts,js,json,md}' && tsc"
   },
   "dependencies": {
