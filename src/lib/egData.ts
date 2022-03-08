@@ -15,4 +15,11 @@ export const exampleCourses: Course[] = [
     description: "GraphQL from Scratch",
     topic: "GraphQL",
   },
+  {
+    _id: "3",
+    title: "GraphQL with React and Redux",
+    teacher: "Jumeko",
+    description: "GraphQL with React and Redux",
+    topic: "GraphQL",
+  },
 ];

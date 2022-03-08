@@ -1,21 +1,37 @@
-import { exit } from "node:process";
-import { Db, MongoClient } from "mongodb";
+import { Collection, MongoClient } from "mongodb";
 import { DB_NAME, MONGO_URL } from "../config";
 
-let connection: Db;
+import type { Db } from "mongodb";
+import { Course } from "./dto";
 
-export async function connectDB() {
-  if (connection) return connection;
+class DB {
+  #conn?: MongoClient;
+  db?: Db;
+  coursesCol?: Collection<Course>;
 
-  let client;
+  constructor(public url: string, public dbName: string) {}
 
-  try {
-    client = await MongoClient.connect(MONGO_URL);
-    connection = client.db(DB_NAME);
-  } catch (error) {
-    console.error("Could not connect to db", MONGO_URL, error);
-    exit(1);
+  async setup() {
+    this.#conn ||= await MongoClient.connect(this.url);
+    this.db = this.#conn.db(this.dbName);
+    this.coursesCol = this.db.collection("courses");
   }
 
-  return connection;
+  async courses() {
+    if (!this.coursesCol) {
+      await this.setup();
+    }
+
+    return this.coursesCol?.find().toArray() as Promise<Course[]>;
+  }
+
+  async course(id: string) {
+    if (!this.coursesCol) {
+      await this.setup();
+    }
+
+    return this.coursesCol?.findOne({ _id: id }) as Promise<Course>;
+  }
 }
+
+export const Database = new DB(MONGO_URL, DB_NAME);
