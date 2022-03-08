@@ -8,6 +8,10 @@ import { graphqlHTTP } from "express-graphql";
 
 import { basic } from "./graphql";
 
+import { connectDB } from "./lib";
+
+connectDB();
+
 const app = express();
 
 const port = process.env.PORT || 4000;
