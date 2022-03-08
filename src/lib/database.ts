@@ -1,7 +1,7 @@
 import { MongoClient, Db } from "mongodb";
 
-const mongoUrl = `mongodb://127.0.0.1:27017/`,
-  DB_NAME = "test";
+const mongoUrl = process.env.MONGO_URL,
+  DB_NAME = process.env.DB_NAME;
 
 let connection: Db;
 
@@ -12,7 +12,6 @@ export async function connectDB() {
 
   try {
     client = await MongoClient.connect(mongoUrl);
-
     connection = client.db(DB_NAME);
   } catch (error) {
     console.error("Could not connect to db", mongoUrl, error);

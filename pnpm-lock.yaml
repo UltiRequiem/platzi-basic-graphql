@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@graphql-tools/schema': ^8.3.2
   '@types/express': ^4.17.13
   '@types/node': ^17.0.21
   '@typescript-eslint/eslint-plugin': ^5.14.0
@@ -19,6 +20,7 @@ specifiers:
   typescript: ^4.6.2
 
 dependencies:
+  '@graphql-tools/schema': 8.3.2_graphql@16.3.0
   dotenv: 16.0.0
   express: 4.17.3
   express-graphql: 0.12.0_graphql@16.3.0
@@ -68,6 +70,37 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@graphql-tools/merge/8.2.3_graphql@16.3.0:
+    resolution: {integrity: sha512-XCSmL6/Xg8259OTWNp69B57CPWiVL69kB7pposFrufG/zaAlI9BS68dgzrxmmSqZV5ZHU4r/6Tbf6fwnEJGiSw==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-tools/utils': 8.6.2_graphql@16.3.0
+      graphql: 16.3.0
+      tslib: 2.3.1
+    dev: false
+
+  /@graphql-tools/schema/8.3.2_graphql@16.3.0:
+    resolution: {integrity: sha512-77feSmIuHdoxMXRbRyxE8rEziKesd/AcqKV6fmxe7Zt+PgIQITxNDew2XJJg7qFTMNM43W77Ia6njUSBxNOkwg==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-tools/merge': 8.2.3_graphql@16.3.0
+      '@graphql-tools/utils': 8.6.2_graphql@16.3.0
+      graphql: 16.3.0
+      tslib: 2.3.1
+      value-or-promise: 1.0.11
+    dev: false
+
+  /@graphql-tools/utils/8.6.2_graphql@16.3.0:
+    resolution: {integrity: sha512-x1DG0cJgpJtImUlNE780B/dfp8pxvVxOD6UeykFH5rHes26S4kGokbgU8F1IgrJ1vAPm/OVBHtd2kicTsPfwdA==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      graphql: 16.3.0
+      tslib: 2.3.1
+    dev: false
 
   /@humanwhocodes/config-array/0.9.5:
     resolution: {integrity: sha512-ObyMyWxZiCu/yTisA7uzx81s40xR2fD5Cg/2Kq7G02ajkNubJf6BopgDTmDyc3U7sXpNKM8cYOw7s7Tyr+DnCw==}
@@ -2106,6 +2139,10 @@ packages:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
 
+  /tslib/2.3.1:
+    resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
+    dev: false
+
   /tsutils/3.21.0_typescript@4.6.2:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
@@ -2209,6 +2246,11 @@ packages:
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
     dev: true
+
+  /value-or-promise/1.0.11:
+    resolution: {integrity: sha512-41BrgH+dIbCFXClcSapVs5M6GkENd3gQOJpEfPDNa71LsUGMXDL0jMWpI/Rh7WhX+Aalfz2TTS3Zt5pUsbnhLg==}
+    engines: {node: '>=12'}
+    dev: false
 
   /vary/1.1.2:
     resolution: {integrity: sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=}
