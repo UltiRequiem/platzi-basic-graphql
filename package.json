@@ -2,9 +2,31 @@
   "name": "platzi-basic-graphql",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "license": "MIT",
+  "scripts": {
+    "start": "ts-node src/",
+    "dev": "ts-node-dev --poll --exit-child --transpile-only ./src/index.ts",
+    "build": "tsc",
+    "format": "prettier --write '**/*.{ts,js,json,md}'",
+    "lint": "eslint . && prettier --check '**/*.{ts,js,json,md}' && tsc"
+  },
   "dependencies": {
-    "graphql": "^16.3.0"
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.3.0",
+    "read-from-fs": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.21",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "eslint": "^8.10.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "ts-node": "^10.7.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.2"
   }
 }
