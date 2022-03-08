@@ -1,24 +1,21 @@
 import "dotenv/config";
-
 import express from "express";
-
 import { graphqlHTTP } from "express-graphql";
-
-import { connectDB, resolvers, schema } from "./lib";
+import { connectDB, schema } from "./lib";
+import { PORT } from "./config";
 
 connectDB();
 
 const app = express();
 
-const port = process.env.PORT || 4000;
-
 app.use(
   "/api",
   graphqlHTTP({
     schema,
-    rootValue: resolvers,
     graphiql: true,
   })
 );
 
-app.listen(port);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

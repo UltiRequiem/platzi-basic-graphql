@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@graphql-tools/schema': ^8.3.2
+  '@graphql-tools/utils': ^8.6.2
   '@types/express': ^4.17.13
   '@types/node': ^17.0.21
   '@typescript-eslint/eslint-plugin': ^5.14.0
@@ -21,6 +22,7 @@ specifiers:
 
 dependencies:
   '@graphql-tools/schema': 8.3.2_graphql@16.3.0
+  '@graphql-tools/utils': 8.6.2_graphql@16.3.0
   dotenv: 16.0.0
   express: 4.17.3
   express-graphql: 0.12.0_graphql@16.3.0

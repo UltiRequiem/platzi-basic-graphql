@@ -1,14 +1,21 @@
 import { readFromSyncGenerator } from "read-from-fs";
-import { buildSchema } from "graphql";
+import { makeExecutableSchema } from "@graphql-tools/schema";
 
 import { Course, exampleCourses } from ".";
 
+import type { IResolvers } from "@graphql-tools/utils";
+
 const readFromHere = readFromSyncGenerator(__dirname);
 
-export const schema = buildSchema(readFromHere("schema.graphql"));
-
-export const resolvers = {
-  courses(): Course[] {
-    return exampleCourses;
+const resolvers: IResolvers = {
+  Query: {
+    courses(): Course[] {
+      return exampleCourses;
+    },
   },
 };
+
+export const schema = makeExecutableSchema({
+  typeDefs: readFromHere("schema.graphql"),
+  resolvers,
+});

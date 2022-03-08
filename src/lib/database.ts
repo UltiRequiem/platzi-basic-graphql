@@ -1,7 +1,6 @@
+import { exit } from "node:process";
 import { MongoClient, Db } from "mongodb";
-
-const mongoUrl = process.env.MONGO_URL,
-  DB_NAME = process.env.DB_NAME;
+import { DB_NAME, MONGO_URL } from "../config";
 
 let connection: Db;
 
@@ -11,11 +10,11 @@ export async function connectDB() {
   let client;
 
   try {
-    client = await MongoClient.connect(mongoUrl);
+    client = await MongoClient.connect(MONGO_URL);
     connection = client.db(DB_NAME);
   } catch (error) {
-    console.error("Could not connect to db", mongoUrl, error);
-    process.exit(1);
+    console.error("Could not connect to db", MONGO_URL, error);
+    exit(1);
   }
 
   return connection;
