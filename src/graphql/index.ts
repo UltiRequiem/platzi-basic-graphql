@@ -1,4 +1,4 @@
-import {  readFromSyncGenerator } from "read-from-fs";
+import { readFromSyncGenerator } from "read-from-fs";
 
 const readFromHere = readFromSyncGenerator(__dirname);
 
