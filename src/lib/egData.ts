@@ -1,6 +1,6 @@
-import { Course } from "./dto";
+import { ICourse } from "./dto";
 
-export const exampleCourses: Course[] = [
+export const exampleCourses: ICourse[] = [
   {
     _id: "1",
     title: "The Complete GraphQL Course",
