@@ -1,7 +1,7 @@
 import { readFromSyncGenerator } from "read-from-fs";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 
-import { Course, Database } from ".";
+import { Database } from ".";
 
 import type { IResolvers } from "@graphql-tools/utils";
 
@@ -9,12 +9,17 @@ const readFromHere = readFromSyncGenerator(__dirname);
 
 const resolvers: IResolvers = {
   Query: {
-    async courses(): Promise<Course[]> {
+    courses() {
       return Database.courses();
     },
 
     course(_root, args: { id: string }) {
       return Database.course(args.id);
+    },
+  },
+  Mutation: {
+    createCourse(_root, { input }) {
+      return Database.addCourse(input);
     },
   },
 };

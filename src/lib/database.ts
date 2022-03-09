@@ -1,8 +1,8 @@
-import { Collection, MongoClient } from "mongodb";
+import { Collection, MongoClient, ObjectId, WithId } from "mongodb";
 import { DB_NAME, MONGO_URL } from "../config";
 
 import type { Db } from "mongodb";
-import { Course } from "./dto";
+import { Course, ICourse } from "./dto";
 
 class DB {
   #conn?: MongoClient;
@@ -22,7 +22,8 @@ class DB {
       await this.setup();
     }
 
-    return this.coursesCol?.find().toArray() as Promise<Course[]>;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return this.coursesCol!.find().toArray()!;
   }
 
   async course(id: string) {
@@ -30,7 +31,19 @@ class DB {
       await this.setup();
     }
 
-    return this.coursesCol?.findOne({ _id: id }) as Promise<Course>;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return this.coursesCol!.findOne({ _id: new ObjectId(id) });
+  }
+
+  async addCourse(course: Course) {
+    if (!this.coursesCol) {
+      await this.setup();
+    }
+
+    console.log("Adding course", JSON.stringify(course));
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return this.coursesCol!.insertOne(course);
   }
 }
 
