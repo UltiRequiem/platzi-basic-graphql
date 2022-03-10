@@ -1,8 +1,8 @@
-import { Collection, MongoClient, ObjectId } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import { DB_NAME, MONGO_URL } from "../config";
 
-import type { Db } from "mongodb";
-import { Course } from "./dto";
+import type { Db, Collection } from "mongodb";
+import type { Course } from "./dto";
 
 class DB {
   #conn?: MongoClient;
