@@ -40,10 +40,13 @@ class DB {
       await this.setup();
     }
 
-    console.log("Adding course", JSON.stringify(course));
+    const newCourse = await this.coursesCol?.insertOne(course);
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return this.coursesCol!.insertOne(course);
+    if (!newCourse) {
+      throw new Error("Failed to add course");
+    }
+
+    return { ...course, _id: newCourse.insertedId };
   }
 }
 
