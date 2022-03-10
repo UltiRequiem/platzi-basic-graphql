@@ -1,8 +1,11 @@
 import "dotenv/config";
+
 import express from "express";
+
 import { graphqlHTTP } from "express-graphql";
 import { schema } from "./lib";
-import { PORT } from "./config";
+
+import { PORT, PRODUCTION } from "./config";
 
 const app = express();
 
@@ -10,7 +13,7 @@ app.use(
   "/api",
   graphqlHTTP({
     schema,
-    graphiql: true,
+    graphiql: !PRODUCTION,
   })
 );
 
