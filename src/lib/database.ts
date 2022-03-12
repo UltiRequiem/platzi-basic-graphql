@@ -69,7 +69,7 @@ export class BaseRepository {
     const person = await this.studentsCol.findOne({ _id: parsedPersonID });
 
     if (!course || !person) {
-      throw new Error(`${course ? "Person" : "Course"} or person not found`);
+      throw new Error("course or person not found");
     }
 
     await this.coursesCol.updateOne(
