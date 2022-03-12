@@ -36,14 +36,6 @@ type Monitor implements Person {
   phone: String
 }
 
-type Query {
-  courses: [Course]
-  course(id: ID!): Course
-  people: [Person]
-  person(id: ID!): Person
-  searchItems(keyword: String!) : [GlobalSearch]
-}
-
 input CourseInput {
   title: String!
   teacher: String
@@ -72,6 +64,14 @@ input PersonEditInput {
   email: String
   phone: String
   avatar: String
+}
+
+type Query {
+  courses: [Course]
+  course(id: ID!): Course
+  people: [Person]
+  person(id: ID!): Person
+  searchItems(keyword: String!): [GlobalSearch]
 }
 
 type Mutation {
