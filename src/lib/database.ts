@@ -25,6 +25,14 @@ export class Repository {
     return this.coursesCol.find().toArray();
   }
 
+  async students() {
+    return this.studentsCol.find().toArray();
+  }
+
+  async student(id: string) {
+    return this.studentsCol.findOne({ _id: new ObjectId(id) });
+  }
+
   async course(id: string) {
     return this.coursesCol.findOne({ _id: new ObjectId(id) });
   }
@@ -84,8 +92,20 @@ export class Repository {
     return this.coursesCol.deleteOne({ _id: new ObjectId(id) });
   }
 
-  async deleteStudents(id: string) {
+  async deleteStudent(id: string) {
     return this.studentsCol.deleteOne({ _id: new ObjectId(id) });
+  }
+
+  async searchItems(keyword: string) {
+    const courses = await this.coursesCol
+      .find({ $text: { $search: keyword } })
+      .toArray();
+
+    const people = await this.studentsCol
+      .find({ $text: { $search: keyword } })
+      .toArray();
+
+    return [...courses, ...people];
   }
 }
 export const Data = await Repository.create(MONGO_URL, DB_NAME);
