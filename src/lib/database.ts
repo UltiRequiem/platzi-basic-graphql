@@ -2,45 +2,34 @@ import { MongoClient, ObjectId } from "mongodb";
 import { DB_NAME, MONGO_URL } from "../config";
 
 import type { Collection, Db } from "mongodb";
-import type { Course } from "./dto";
+import type { Course, Student } from "./dto";
 
-class DB {
-  #conn?: MongoClient;
-  db?: Db;
-  coursesCol?: Collection<Course>;
+export class DB {
+  db: Db;
+  coursesCol: Collection<Course>;
+  studentsCol: Collection<Student>;
 
-  constructor(public url: string, public dbName: string) {}
-
-  async setup() {
-    this.#conn ||= await MongoClient.connect(this.url);
-    this.db = this.#conn.db(this.dbName);
+  constructor(private conn: MongoClient, private dbName: string) {
+    this.db = this.conn.db(this.dbName);
     this.coursesCol = this.db.collection("courses");
+    this.studentsCol = this.db.collection("students");
+  }
+
+  static async create(MONGO_URL: string, DB_NAME: string): Promise<DB> {
+    const connection = await MongoClient.connect(MONGO_URL);
+    return new DB(connection, DB_NAME);
   }
 
   async courses() {
-    if (!this.coursesCol) {
-      await this.setup();
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return this.coursesCol!.find().toArray()!;
+    return this.coursesCol.find().toArray();
   }
 
   async course(id: string) {
-    if (!this.coursesCol) {
-      await this.setup();
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return this.coursesCol!.findOne({ _id: new ObjectId(id) });
+    return this.coursesCol.findOne({ _id: new ObjectId(id) });
   }
 
   async addCourse(course: Course) {
-    if (!this.coursesCol) {
-      await this.setup();
-    }
-
-    const newCourse = await this.coursesCol?.insertOne(course);
+    const newCourse = await this.coursesCol.insertOne(course);
 
     if (!newCourse) {
       throw new Error("Failed to add course");
@@ -48,6 +37,11 @@ class DB {
 
     return { ...course, _id: newCourse.insertedId };
   }
-}
 
-export const Database = new DB(MONGO_URL, DB_NAME);
+  async createPerson(studentData: Student) {
+    const student = await this.studentsCol.insertOne(studentData);
+
+    return { ...studentData, _id: student.insertedId };
+  }
+}
+export const Database = await DB.create(MONGO_URL, DB_NAME);

@@ -7,6 +7,7 @@ specifiers:
   '@types/node': ^17.0.21
   '@typescript-eslint/eslint-plugin': ^5.14.0
   '@typescript-eslint/parser': ^5.14.0
+  dirname-filename-esm: ^1.1.1
   dotenv: ^16.0.0
   eslint: ^8.10.0
   express: ^4.17.3
@@ -23,6 +24,7 @@ specifiers:
 dependencies:
   '@graphql-tools/schema': 8.3.2_graphql@16.3.0
   '@graphql-tools/utils': 8.6.2_graphql@16.3.0
+  dirname-filename-esm: 1.1.1
   dotenv: 16.0.0
   express: 4.17.3
   express-graphql: 0.12.0_graphql@16.3.0
@@ -733,6 +735,10 @@ packages:
     dependencies:
       path-type: 4.0.0
     dev: true
+
+  /dirname-filename-esm/1.1.1:
+    resolution: {integrity: sha512-BWBkv157Cf/z7Hjod2v2JS7vyC36Dk1QQolAtuLjpl8RBlv7Z92X7+Ufc2cjfR/B3iJUiK0QmGZkgtsmmLz0Tw==}
+    dev: false
 
   /doctrine/3.0.0:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
