@@ -4,7 +4,7 @@ import { DB_NAME, MONGO_URL } from "../config";
 import type { Collection, Db } from "mongodb";
 import type { Course, Student } from "./dto";
 
-export class BaseRepository {
+export class Repository {
   db: Db;
   coursesCol: Collection<Course>;
   studentsCol: Collection<Student>;
@@ -16,9 +16,9 @@ export class BaseRepository {
   }
 
   // This patron is so lovely on Deno but a Nightmare on Node.js + TypeScript
-  static async create(MONGO_URL: string, DB_NAME: string): Promise<BaseRepository> {
+  static async create(MONGO_URL: string, DB_NAME: string): Promise<Repository> {
     const connection = await MongoClient.connect(MONGO_URL);
-    return new BaseRepository(connection, DB_NAME);
+    return new Repository(connection, DB_NAME);
   }
 
   async courses() {
@@ -65,8 +65,8 @@ export class BaseRepository {
     const parsedCourseID = new ObjectId(courseID),
       parsedPersonID = new ObjectId(personID);
 
-    const course = await this.coursesCol.findOne({ _id: parsedCourseID });
-    const person = await this.studentsCol.findOne({ _id: parsedPersonID });
+    const course = await this.coursesCol.findOne({ _id: parsedCourseID }),
+      person = await this.studentsCol.findOne({ _id: parsedPersonID });
 
     if (!course || !person) {
       throw new Error("course or person not found");
@@ -79,5 +79,13 @@ export class BaseRepository {
 
     return course;
   }
+
+  async deleteCourse(id: string) {
+    return this.coursesCol.deleteOne({ _id: new ObjectId(id) });
+  }
+
+  async deleteStudents(id: string) {
+    return this.studentsCol.deleteOne({ _id: new ObjectId(id) });
+  }
 }
-export const Database = await BaseRepository.create(MONGO_URL, DB_NAME);
+export const Data = await Repository.create(MONGO_URL, DB_NAME);
