@@ -8,7 +8,7 @@
     "start": "NODE_OPTIONS='--es-module-specifier-resolution=node' ts-node src/",
     "start-build": "pnpm build && NODE_OPTIONS='--es-module-specifier-resolution=node' node dist/index.js",
     "dev": "NODE_OPTIONS='--es-module-specifier-resolution=node' tsnd --poll --exit-child --transpile-only ./src/index.ts",
-    "dev-node": "nodemon --exec 'node --loader ts-node/esm src/index.ts'",
+    "dev-node": "nodemon -e ts --exec 'node --loader ts-node/esm src/index.ts'",
     "build": "tsc",
     "fmt": "prettier --write '**/*.{ts,js,json,md}'",
     "lint": "eslint . && prettier --check '**/*.{ts,js,json,md}' && tsc"

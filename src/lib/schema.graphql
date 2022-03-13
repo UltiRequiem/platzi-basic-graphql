@@ -69,8 +69,8 @@ input PersonEditInput {
 type Query {
   courses: [Course]
   course(id: ID!): Course
-  people: [Person]
-  person(id: ID!): Person
+  students: [Person]
+  student(id: ID!): Person
   searchItems(keyword: String!): [GlobalSearch]
 }
 
@@ -81,5 +81,5 @@ type Mutation {
   editPerson(_id: ID!, input: PersonEditInput): Person
   addPeople(courseID: ID!, personID: ID!): Course
   deleteCourse(_id: ID!): Boolean
-  deleteStudent(_id: ID!): Boolean
+  deletePerson(_id: ID!): Boolean
 }

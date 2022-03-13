@@ -119,4 +119,6 @@ export class Repository {
     return peopleData;
   }
 }
-export const Data = await Repository.create(MONGO_URL, DB_NAME);
+
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+export const Data = await Repository.create(MONGO_URL!, DB_NAME!);
