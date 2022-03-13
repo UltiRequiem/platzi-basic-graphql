@@ -90,7 +90,7 @@ class Repository {
     }
 
     await this.coursesCol.updateOne(
-      { _id: parsedPersonID },
+      { _id: parsedCourseID },
       { $addToSet: { people: parsedPersonID } }
     );
 
