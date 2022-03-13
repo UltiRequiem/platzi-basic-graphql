@@ -25,13 +25,13 @@ Chose any DB Name you want, and set `NODE_ENV` to `production` or `development`.
 Production
 
 ```sh
-pnpm start-build
+pnpm start
 ```
 
 Development
 
 ```sh
-NODE_OPTIONS='--es-module-specifier-resolution=node' pnpm dev-node
+pnpm dev
 ```
 
 If you check the [`package.json`](./package.json) there are a lot of scripts,
@@ -47,6 +47,8 @@ doesn't support ESM yet.
 - GraphQL
 
 - MongoDB
+
+- GitHub Actions
 
 ## License
 

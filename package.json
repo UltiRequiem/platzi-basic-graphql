@@ -5,10 +5,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "NODE_OPTIONS='--es-module-specifier-resolution=node' ts-node src/",
-    "start-build": "pnpm build && NODE_OPTIONS='--es-module-specifier-resolution=node' node dist/index.js",
-    "dev": "NODE_OPTIONS='--es-module-specifier-resolution=node' tsnd --poll --exit-child --transpile-only ./src/index.ts",
-    "dev-node": "nodemon -e ts --exec 'node --loader ts-node/esm src/index.ts'",
+    "start": "pnpm build && pnpm copy-schema && NODE_OPTIONS='--es-module-specifier-resolution=node' node dist/index.js",
+    "dev": "NODE_OPTIONS='--es-module-specifier-resolution=node' nodemon --ignore dist/ -e ts,graphql --exec 'pnpm copy-schema && node --loader ts-node/esm src/index.ts'",
+    "copy-schema": "cp src/lib/schema.graphql dist/lib/schema.graphql",
     "build": "tsc",
     "fmt": "prettier --write '**/*.{ts,js,json,md}'",
     "lint": "eslint . && prettier --check '**/*.{ts,js,json,md}' && tsc"
