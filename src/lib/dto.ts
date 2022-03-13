@@ -1,5 +1,3 @@
-import exp from "constants";
-
 export interface Course {
   title: string;
   teacher: string;

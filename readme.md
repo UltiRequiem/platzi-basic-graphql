@@ -34,12 +34,6 @@ Development
 pnpm dev
 ```
 
-If you check the [`package.json`](./package.json) there are a lot of scripts,
-the setup was a lot simpler, but I wanted to use
-[top-level await](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html#top-level-await)
-so to do that I need to use type module, some tools, like `ts-node` or derivate,
-doesn't support ESM yet.
-
 ## Stack
 
 - Express

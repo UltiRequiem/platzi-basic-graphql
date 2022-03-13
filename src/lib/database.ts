@@ -19,10 +19,14 @@ class Repository {
   }
 
   public static async Instance(
-    MONGO_URL: string,
-    DB_NAME: string
+    MONGO_URL?: string,
+    DB_NAME?: string
   ): Promise<Repository> {
-    if (!this._instance) {
+    if (!this._instance && (!MONGO_URL || !DB_NAME)) {
+      throw new Error("MONGO_URL and DB_NAME must be provided the first time");
+    }
+
+    if (!this._instance && MONGO_URL && DB_NAME) {
       const connection = await MongoClient.connect(MONGO_URL);
       this._instance = new this(connection, DB_NAME);
     }
@@ -30,19 +34,19 @@ class Repository {
     return this._instance;
   }
 
-  public async courses() {
+  public courses() {
     return this.coursesCol.find().toArray();
   }
 
-  public async students() {
+  public students() {
     return this.studentsCol.find().toArray();
   }
 
-  public async student(id: string) {
+  public student(id: string) {
     return this.studentsCol.findOne({ _id: new ObjectId(id) });
   }
 
-  public async course(id: string) {
+  public course(id: string) {
     return this.coursesCol.findOne({ _id: new ObjectId(id) });
   }
 
@@ -97,11 +101,11 @@ class Repository {
     return course;
   }
 
-  public async deleteCourse(id: string) {
+  public deleteCourse(id: string) {
     return this.coursesCol.deleteOne({ _id: new ObjectId(id) });
   }
 
-  public async deleteStudent(id: string) {
+  public deleteStudent(id: string) {
     return this.studentsCol.deleteOne({ _id: new ObjectId(id) });
   }
 
@@ -129,5 +133,4 @@ class Repository {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-export const Data = await Repository.Instance(MONGO_URL!, DB_NAME!);
+export const Data = await Repository.Instance(MONGO_URL, DB_NAME);
