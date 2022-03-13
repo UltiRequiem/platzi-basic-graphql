@@ -22,7 +22,7 @@ export const resolvers: IResolvers = {
 
     searchItems(_root, { query }) {
       return Data.searchItems(query);
-    }
+    },
   },
   Mutation: {
     createCourse(_root, { input }) {
@@ -51,6 +51,32 @@ export const resolvers: IResolvers = {
 
     addPeople(_root, { courseID, personID }) {
       return Data.addPeople(courseID, personID);
+    },
+  },
+
+  Course: {
+    people({ people }) {
+      return Data.people(people);
+    },
+  },
+
+  Person: {
+    __resolveType(person: { phone: boolean }) {
+      return person.phone ? "Monitor" : "Teacher";
+    },
+  },
+
+  GlobalSearch: {
+    __resolveType(item: { title: boolean; phone: boolean }) {
+      if (item.title) {
+        return "Course";
+      }
+
+      if (item.phone) {
+        return "Monitor";
+      }
+
+      return "Student";
     },
   },
 };

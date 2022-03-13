@@ -107,5 +107,16 @@ export class Repository {
 
     return [...courses, ...people];
   }
+
+  async people(peopleID: string[]) {
+    const ids = peopleID ? peopleID.map((id) => new ObjectId(id)) : [];
+
+    const peopleData =
+      ids.length > 0
+        ? await this.studentsCol.find({ _id: { $in: ids } }).toArray()
+        : [];
+
+    return peopleData;
+  }
 }
 export const Data = await Repository.create(MONGO_URL, DB_NAME);
