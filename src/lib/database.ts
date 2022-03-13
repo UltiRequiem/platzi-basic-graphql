@@ -4,40 +4,49 @@ import { DB_NAME, MONGO_URL } from "../config";
 import type { Collection, Db } from "mongodb";
 import type { Course, Student } from "./dto";
 
-export class Repository {
-  db: Db;
-  coursesCol: Collection<Course>;
-  studentsCol: Collection<Student>;
+class Repository {
+  private readonly db: Db;
+  private readonly coursesCol: Collection<Course>;
+  private readonly studentsCol: Collection<Student>;
 
-  constructor(private conn: MongoClient, private dbName: string) {
+  private static _instance: Repository;
+
+  private constructor(private conn: MongoClient, private dbName: string) {
     this.db = this.conn.db(this.dbName);
+
     this.coursesCol = this.db.collection("courses");
     this.studentsCol = this.db.collection("students");
   }
 
-  // This patron is so lovely on Deno but a Nightmare on Node.js + TypeScript
-  static async create(MONGO_URL: string, DB_NAME: string): Promise<Repository> {
-    const connection = await MongoClient.connect(MONGO_URL);
-    return new Repository(connection, DB_NAME);
+  public static async Instance(
+    MONGO_URL: string,
+    DB_NAME: string
+  ): Promise<Repository> {
+    if (!this._instance) {
+      const connection = await MongoClient.connect(MONGO_URL);
+      this._instance = new this(connection, DB_NAME);
+    }
+
+    return this._instance;
   }
 
-  async courses() {
+  public async courses() {
     return this.coursesCol.find().toArray();
   }
 
-  async students() {
+  public async students() {
     return this.studentsCol.find().toArray();
   }
 
-  async student(id: string) {
+  public async student(id: string) {
     return this.studentsCol.findOne({ _id: new ObjectId(id) });
   }
 
-  async course(id: string) {
+  public async course(id: string) {
     return this.coursesCol.findOne({ _id: new ObjectId(id) });
   }
 
-  async addCourse(course: Course) {
+  public async addCourse(course: Course) {
     const newCourse = await this.coursesCol.insertOne(course);
 
     if (!newCourse) {
@@ -47,13 +56,13 @@ export class Repository {
     return { ...course, _id: newCourse.insertedId };
   }
 
-  async createPerson(studentData: Student) {
+  public async createPerson(studentData: Student) {
     const student = await this.studentsCol.insertOne(studentData);
 
     return { ...studentData, _id: student.insertedId };
   }
 
-  async editCourse(id: string, input: Partial<Course>) {
+  public async editCourse(id: string, input: Partial<Course>) {
     const parsedId = new ObjectId(id);
 
     await this.coursesCol.updateOne({ _id: parsedId }, { $set: input });
@@ -61,7 +70,7 @@ export class Repository {
     return this.coursesCol.findOne({ _id: parsedId });
   }
 
-  async editPerson(id: string, input: Partial<Student>) {
+  public async editPerson(id: string, input: Partial<Student>) {
     const parsedId = new ObjectId(id);
 
     await this.studentsCol.updateOne({ _id: parsedId }, { $set: input });
@@ -69,7 +78,7 @@ export class Repository {
     return this.studentsCol.findOne({ _id: parsedId });
   }
 
-  async addPeople(courseID: string, personID: string) {
+  public async addPeople(courseID: string, personID: string) {
     const parsedCourseID = new ObjectId(courseID),
       parsedPersonID = new ObjectId(personID);
 
@@ -88,15 +97,15 @@ export class Repository {
     return course;
   }
 
-  async deleteCourse(id: string) {
+  public async deleteCourse(id: string) {
     return this.coursesCol.deleteOne({ _id: new ObjectId(id) });
   }
 
-  async deleteStudent(id: string) {
+  public async deleteStudent(id: string) {
     return this.studentsCol.deleteOne({ _id: new ObjectId(id) });
   }
 
-  async searchItems(keyword: string) {
+  public async searchItems(keyword: string) {
     const courses = await this.coursesCol
       .find({ $text: { $search: keyword } })
       .toArray();
@@ -108,7 +117,7 @@ export class Repository {
     return [...courses, ...people];
   }
 
-  async people(peopleID: string[]) {
+  public async people(peopleID: string[]) {
     const ids = peopleID ? peopleID.map((id) => new ObjectId(id)) : [];
 
     const peopleData =
@@ -121,4 +130,4 @@ export class Repository {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-export const Data = await Repository.create(MONGO_URL!, DB_NAME!);
+export const Data = await Repository.Instance(MONGO_URL!, DB_NAME!);

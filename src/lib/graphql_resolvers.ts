@@ -62,7 +62,7 @@ export const resolvers: IResolvers = {
 
   Person: {
     __resolveType(person: { phone: boolean }) {
-      return person.phone ? "Monitor" : "Teacher";
+      return person.phone ? "Monitor" : "Student";
     },
   },
 
